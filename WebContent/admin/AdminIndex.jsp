@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=GB18030"
+    pageEncoding="GB18030"%>
+ <%@include file="_sessioncheck.jsp"%>
+    
 <html>
 <script language="javascript">
 	state = 0 ;
@@ -6,7 +10,7 @@
 </script>
 
 <head>
-<title>E_Shopping管理平台</title>
+<title>E_Shopping商城</title>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 </head>
 

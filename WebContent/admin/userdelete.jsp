@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=GB18030"
     pageEncoding="GB18030"%>
 <%@ page import="com.bjsxt.shopping.util.*" %>
-
+ <%@ include file="_sessioncheck.jsp"  %>
 <%
 	int id = Integer.parseInt(request.getParameter("id"));
 	User.deleteUser(id);

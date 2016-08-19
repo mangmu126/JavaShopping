@@ -11,7 +11,7 @@ if(action != null && action.equals("login")) {
 		return;
 	}
 	session.setAttribute("admin" , "admin");
-	response.sendRedirect("AdminIndex.html");
+	response.sendRedirect("AdminIndex.jsp");
 }
 %>
 

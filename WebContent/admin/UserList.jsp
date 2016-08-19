@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=GB18030"
     pageEncoding="GB18030"%>
-    
+  <%@ include file="_sessioncheck.jsp"  %>
 <%@ page import="java.sql.*,com.bjsxt.shopping.util.*,java.util.*" %>
 
 <%
