@@ -135,4 +135,68 @@ public class User {
 			DB.close(conn);
 		}
 	}
+	
+	public static boolean userExiste(String username)
+	{
+		return false;
+	}
+	public static boolean isPasswordCorrect(String username,String password)
+	{
+		return false;
+	}
+	
+	public static User validates(String username,String password) throws UserNotFountException, PasswordNotCorrectException
+	{
+		Connection conn = null;
+		ResultSet rs = null;
+		User u = null;
+		try{
+			conn = DB.getConn();
+			String sql = "select * from user where username ='"+username+"'";
+			rs = DB.executeQuery(conn, sql);
+			if(!rs.next())
+			{
+				throw new UserNotFountException();
+			}else if(!rs.getString("password").equals(password)){
+				throw new PasswordNotCorrectException();
+			}else
+			{
+				u = new User();
+				u.setId(rs.getInt("id"));
+				u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"));
+				u.setPhone(rs.getString("phone"));
+				u.setAddr(rs.getString("addr"));
+				u.setRdate(rs.getTimestamp("rdate"));
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			DB.close(rs);
+			DB.close(conn);
+		}
+		return u;
+	}
+
+	public void update()
+	{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try{
+			conn = DB.getConn();
+			String sql ="update user set username = ? ,phone = ? ,addr = ? where id = "+this.id;
+			pstmt = DB.preStmt(conn,sql);
+			pstmt.setString(1,this.username);
+			pstmt.setString(2,this.phone);
+			pstmt.setString(3,this.addr);
+			pstmt.executeUpdate();
+		}catch(SQLException e )
+		{
+			e.printStackTrace();
+		}finally{
+			DB.close(pstmt);
+			DB.close(conn);
+		}
+	}
+	
 }
