@@ -20,7 +20,12 @@
 			Category.addTopCategory(name,descr);
 		}else
 		{
-			Category.addChildCategory(pid,name,descr);
+			Category parent = Category.loadById(pid);
+			Category child = new Category();
+			child.setId(-1);
+			child.setName(name);
+			child.setDescr(descr); 
+			parent.addChild(child);
 		}
 			out.println("Congratulation! Resgistered OK!");
 		

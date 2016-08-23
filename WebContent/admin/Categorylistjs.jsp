@@ -11,6 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=GB18030">
 <title>Insert title here</title>
+<script language="javascript" src="script/TV20.js"></script>
 </head>
 <body>
 	<table border="1" align="center">
@@ -34,28 +35,18 @@
 			处理
 		</td>	
 		</tr>
-		
+		<script>
+			addNode(-1,0,"类别","images/top.gif");
 			<%
-				for(Iterator<Category> it = categories.iterator();it.hasNext();)
-				{
-					Category c = it.next();
-					String preStr ="";
-					for(int i=1;i<c.getGrade();i++){
-						 preStr += "------";
-					}
-			%>
-			<tr>
-					<td><%=c.getId() %></td>
-					<td><%=c.getName() %></td>
-					<td><%=c.getPid() %></td>
-					<td><%=c.getGrade() %></td>
-					<td><a href="Categoryadd.jsp?pid=<%=c.getId() %>">添加子节点</a></td>
-					<% if(c.isLeaf()){ %>
-					<td><a href="Productadd.jsp?cid=<%=c.getId() %>">添加商品</a></td>
-					<%} %>
-			</tr>
-			<% } %>
-		
+			for(int i=0; i<categories.size(); i++) {
+				Category c = categories.get(i);
+				%>
+				addNode(<%=c.getPid()%>,<%=c.getId()%>,"<%=c.getName()%>","images/top.gif");
+				<%
+				}
+				%>
+				showTV();
+		</script>
 		
 	</table>
 </body>

@@ -78,8 +78,9 @@ public class CategoryDAO {
 			
 			conn.setAutoCommit(false);
 			rs = DB.executeQuery(conn, "select * from category where id = "+pid);
-			rs.next();
-			int parentGrade = rs.getInt("grade");
+			int parentGrade = 0;
+			if(rs.next())
+				parentGrade = rs.getInt("grade");
 			// 存储新的category
 			String sql = "insert into category values(null,?,?,?,?,?)";
 			
@@ -93,7 +94,8 @@ public class CategoryDAO {
 			
 			// 更新父节点
 			stmt = DB.getStatement(conn);
-			DB.executeUpdate(stmt,"update categroy set cno = where id ="+pid);
+			if(pid!=0)
+				DB.executeUpdate(stmt,"update category set cno = 1 where id ="+pid);
 			
 			conn.commit();
 			conn.setAutoCommit(true);
@@ -114,4 +116,40 @@ public class CategoryDAO {
 		}
 		
 	}
+	public static Category loadById(int id) {
+	
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		Category c = null;
+		try{
+			conn = DB.getConn();
+			rs = DB.executeQuery(conn, "select * from category where id ="+id);
+			if(rs.next())
+			{
+				 c = new Category();
+				c.setId(rs.getInt("id"));
+				c.setName(rs.getString("name"));
+				c.setDescr(rs.getString("descr"));
+				c.setPid(rs.getInt("pid"));
+				c.setLeaf(rs.getInt("cno")==0?true:false);
+				c.setGrade(rs.getInt("grade"));
+			}
+		}catch(SQLException e)
+		{
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally{
+			DB.close(rs);
+			DB.close(stmt);
+			DB.close(conn);
+		}
+		return c;
+	}
+	
 }

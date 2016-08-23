@@ -53,14 +53,7 @@ public class Category {
 	}
 	public static void addTopCategory(String name,String descr)
 	{
-		Category c = new Category();
-		c.setId(-1);
-		c.setName(name);
-		c.setDescr(descr);
-		c.setPid(0);
-		c.setLeaf(true);
-		c.setGrade(1);
-		add(c);
+		addChildCategory(0,name,descr);
 	}
 	public static List<Category> getCategories()
 	{
@@ -70,6 +63,14 @@ public class Category {
 	}
 	public static void addChildCategory(int pid,String name,String descr){
 		CategoryDAO.addChildCategory(pid,name,descr);
+	}
+	public void addChild(Category c)
+	{
+		Category.addChildCategory(id, c.getName(), c.getDescr());
+	}
+	public static Category loadById(int id)
+	{
+		return CategoryDAO.loadById(id);
 	}
 	
 }
