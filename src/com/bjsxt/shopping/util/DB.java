@@ -54,6 +54,20 @@ public class DB {
 		return pstmt;
 		
 	}
+	public static PreparedStatement preStmt(Connection conn,String sql,boolean generatedKey)
+	{
+		PreparedStatement pstmt = null;
+		try {
+			if(conn != null)
+			{
+				pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pstmt;
+		
+	}
 	
 	public static Statement getStatement(Connection conn)
 	{

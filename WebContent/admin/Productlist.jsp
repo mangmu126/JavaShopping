@@ -72,7 +72,7 @@ int downPage = pageNo>=pageCount?pageCount:pageNo+1;
 					<td><%=p.getMemberPrice() %></td>
 					<td><%=p.getCategory().getName() %></td>
 					<td><%=p.getPdate() %></td>
-					<td><a href="productdelete.jsp?id=<%=p.getId() %>">删除</a><a href="productmodify.jsp?id=<%=p.getId() %>">修改</a></td>
+					<td><a href="productdelete.jsp?id=<%=p.getId() %>">删除</a><a href="productmodify.jsp?id=<%=p.getId() %>">修改</a><a href="Productupload.jsp?id=<%=p.getId()%>">上传</a></td>
 			</tr>
 			<% } %>
 		

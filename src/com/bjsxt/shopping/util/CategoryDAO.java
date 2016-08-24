@@ -39,9 +39,18 @@ public class CategoryDAO {
 	public  static void getCategories(List<Category> list,int id)
 	{	
 		Connection conn = null;
-		ResultSet rs = null;
 		try{
 			conn = DB.getConn();
+			getCategories(conn,list,id);
+		}finally{
+			DB.close(conn);
+		}
+	}
+	
+	public  static void getCategories(Connection conn,List<Category> list,int id)
+	{	
+		ResultSet rs = null;
+		try{
 			String sql ="select * from category where pid = "+id;
 			rs = DB.executeQuery(conn, sql);
 			while(rs.next())
@@ -65,7 +74,6 @@ public class CategoryDAO {
 			e.printStackTrace();
 		}finally{
 			DB.close(rs);
-			DB.close(conn);
 		}
 	}
 	public static void addChildCategory(int pid,String name,String descr) {

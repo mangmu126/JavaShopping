@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -252,5 +253,42 @@ public class ProductMySQLDAO implements ProductDAO {
 			DB.close(conn);
 		}
 		return pageCount;
+	}
+	@Override
+	public  Product loadById(int id) {
+		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		Product p = null;
+		try{
+			conn = DB.getConn();
+			rs = DB.executeQuery(conn, "select * from Product where id ="+id);
+			if(rs.next())
+			{
+				p = new Product();
+				p.setId(rs.getInt("id"));
+				p.setName(rs.getString("name"));
+				p.setDescr(rs.getString("descr"));
+				p.setNormalPrice(rs.getDouble("normalprice"));
+				p.setMemberPrice(rs.getDouble("memberprice"));
+				p.setPdate(rs.getTimestamp("pdate"));
+				p.setCategoryId(rs.getInt("categoryid"));
+			}
+		}catch(SQLException e)
+		{
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally{
+			DB.close(rs);
+			DB.close(stmt);
+			DB.close(conn);
+		}
+		return p;
 	}
 }

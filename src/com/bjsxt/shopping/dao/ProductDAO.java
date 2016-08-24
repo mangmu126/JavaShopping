@@ -1,9 +1,15 @@
 package com.bjsxt.shopping.dao;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
 
 import com.bjsxt.shopping.Product;
+import com.bjsxt.shopping.util.Category;
+import com.bjsxt.shopping.util.DB;
 
 public interface ProductDAO {
 	public List<Product>getProducts();
@@ -25,4 +31,5 @@ public interface ProductDAO {
 	public boolean addProduct(Product p);
 	public int getProducts(List<Product> proudcts, int pageNo,
 			int pageSize);
+	public Product loadById(int id);
 }

@@ -1,10 +1,15 @@
 package com.bjsxt.shopping;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
 
 import com.bjsxt.shopping.dao.ProductDAO;
 import com.bjsxt.shopping.dao.ProductMySQLDAO;
+import com.bjsxt.shopping.util.DB;
 
 
 
@@ -72,5 +77,9 @@ public class ProductMgr {
 	public boolean addProduct(Product p)
 	{
 		return  dao.addProduct(p);
+	}
+	public Product loadById(int id) {
+		
+		return dao.loadById(id);
 	}
 }
